@@ -1,10 +1,11 @@
 const TodoService = require('../services/todosService');
 
 const TodoController = {
-    // GET /api/todos
+    // GET /api/todos/:userId
+    // שליפת כל המשימות עבור משתמש ספציפי לפי ה-ID שנשלח בכתובת
     getTodos: async (req, res) => {
         try {
-            const userId = req.user.id; // מניח שה-ID מגיע מ-Middleware של אימות
+            const userId = req.params.userId; 
             const todos = await TodoService.getUserTodos(userId);
             res.status(200).json(todos);
         } catch (error) {
@@ -12,25 +13,26 @@ const TodoController = {
         }
     },
 
-    // POST /api/todos
+    // POST /api/todos/:userId
+    // יצירת משימה חדשה המשויכת למזהה המשתמש שבכתובת
     createTodo: async (req, res) => {
         try {
-            const userId = req.user.id;
+            const userId = req.params.userId;
             const { title } = req.body;
             
             const newTodo = await TodoService.createTodo(userId, title);
             res.status(201).json(newTodo);
         } catch (error) {
-            // שגיאת לוגיקה (למשל כותרת ריקה) או שגיאת שרת
             res.status(400).json({ error: error.message });
         }
     },
 
-    // PUT /api/todos/:id
+    // PUT /api/todos/:userId/:id
+    // עדכון משימה ספציפית עבור משתמש מסוים
     updateTodo: async (req, res) => {
         try {
-            const userId = req.user.id;
-            const todoId = req.params.id; // מגיע משורת הכתובת ה-URL
+            const userId = req.params.userId;
+            const todoId = req.params.id; 
             const { title, completed } = req.body;
             
             const result = await TodoService.updateTodo(userId, todoId, { title, completed });
@@ -40,10 +42,11 @@ const TodoController = {
         }
     },
 
-    // DELETE /api/todos/:id
+    // DELETE /api/todos/:userId/:id
+    // מחיקת משימה של משתמש לפי מזהה המשתמש ומזהה המשימה
     deleteTodo: async (req, res) => {
         try {
-            const userId = req.user.id;
+            const userId = req.params.userId;
             const todoId = req.params.id;
             
             const result = await TodoService.deleteTodo(userId, todoId);
