@@ -3,25 +3,14 @@ const UsersService = require('../services/usersService');
 const UserController = {
 
     login: async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await UsersService.login(username, password);
-
-        const token = jwt.sign(
-            { userId: user.id }, 
-            process.env.JWT_SECRET, 
-            { expiresIn: '24h' } 
-        );
-
-        return res.status(200).json({ 
-            user, 
-            token 
-        });
-
-    } catch (error) {
-        return res.status(401).json({ error: error.message });
-    }
-},
+        try {
+            const { username, password } = req.body;
+            const user = await UsersService.login(username, password);
+            return res.status(200).json({ user });
+        } catch (error) {
+            return res.status(401).json({ error: error.message });
+        }
+    },
 
     getUserInfo: async (req, res) => {
         try {
