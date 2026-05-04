@@ -5,7 +5,7 @@ const TodoController = {
     // שליפת כל המשימות עבור משתמש ספציפי לפי ה-ID שנשלח בכתובת
     getTodos: async (req, res) => {
         try {
-            const userId = req.params.userId; 
+            const userId = req.query.userId;
             const todos = await TodoService.getUserTodos(userId);
             res.status(200).json(todos);
         } catch (error) {

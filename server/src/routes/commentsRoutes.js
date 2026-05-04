@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const CommentController = require('../controllers/commentsController');
+const { checkCommentOwnership } = require('../middlewares/ownershipMiddleware');
 
 // --- הגדרת הראוטים ---
 
 // שליפת כל התגובות של פוסט מסוים
-router.get('/posts/:postId/comments', CommentController.getComments);
+router.get('/', CommentController.getComments);
 
 // יצירת תגובה חדשה לפוסט על ידי משתמש מסוים
-router.post('/posts/:postId/users/:userId/comments', CommentController.createComment);
+router.post('/:postId/users/:userId', CommentController.createComment);
 
 // עדכון תגובה ספציפית (צריך לדעת מי המשתמש ומה מזהה התגובה)
-router.put('/users/:userId/comments/:id', CommentController.updateComment);
+router.put('/users/:userId/comments/:id', checkCommentOwnership, CommentController.updateComment);
 
 // מחיקת תגובה ספציפית
-router.delete('/users/:userId/comments/:id', CommentController.deleteComment);
+router.delete('/users/:userId/comments/:id', checkCommentOwnership, CommentController.deleteComment);
 
 module.exports = router;

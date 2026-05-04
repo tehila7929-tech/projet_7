@@ -4,7 +4,7 @@ const CommentController = {
 
     getComments: async (req, res) => {
         try {
-            const postId = req.params.postId;
+            const postId = req.query.postId;
             const comments = await CommentsService.getPostsComments(postId);
             res.status(200).json(comments);
         } catch (error) {

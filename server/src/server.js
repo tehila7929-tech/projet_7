@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+const cors = require('cors');
+app.use(cors()); // זה יאפשר לכל כתובת לגשת לשרת
+
 // ייבוא הראוטים מהתיקייה src/routes
 const usersRoutes = require('./routes/usersRoutes');
 const postsRoutes = require('./routes/postsRoutes');
@@ -12,10 +15,10 @@ app.use(express.json());
 
 // הגדרת נתיבי הבסיס לכל משאב
 // לפי מה שדיברנו, נשתמש בתחילית /api כדי לשמור על סדר
-app.use('/api/users', usersRoutes);
-app.use('/api/posts', postsRoutes);
-app.use('/api/todos', todosRoutes);
-app.use('/api/comments', commentsRoutes);
+app.use('/users', usersRoutes);
+app.use('/posts', postsRoutes);
+app.use('/todos', todosRoutes);
+app.use('/comments', commentsRoutes);
 
 // נתיב בדיקה כללי כדי לוודא שהשרת רץ
 app.get('/health', (req, res) => {
