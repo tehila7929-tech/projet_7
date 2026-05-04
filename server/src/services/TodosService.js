@@ -30,13 +30,10 @@ const TodoService = {
     },
 
     // מחיקת משימה
-    deleteTodo: async (userId, todoId) => {
-        if (!userId || !todoId) throw new Error('User ID and Todo ID are required');
-
-        const affectedRows = await Todo.delete(userId, todoId);
-        if (affectedRows === 0) {
-            throw new Error('Todo not found or not authorized to delete');
-        }
+    deleteTodo: async (todoId) => {
+        if (!todoId) throw new Error('Todo ID is required');
+        const affectedRows = await Todo.delete(todoId);
+        if (affectedRows === 0) throw new Error('Todo not found');
         return { success: true, message: 'Todo deleted successfully' };
     }
 };

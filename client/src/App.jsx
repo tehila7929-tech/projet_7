@@ -9,10 +9,7 @@ import Layout from './components/Layout/Layout';
 import RegisterDetails from './pages/Auth/RegisterDetails';
 import Todos from './pages/Todos/Todos';
 import Posts from './pages/Posts/Posts';
-import Albums from './pages/Albums/Albums';
-import AlbumPhotos from './pages/Albums/AlbumPhotos';
 import OwnerGuard from './components/Guard/OwnerGuard';
-import AlbumGuard from './components/Guard/AlbumGuard';
 
 export default function App() {
   const { currentUser } = useUser();
@@ -40,10 +37,6 @@ export default function App() {
           <Route element={<OwnerGuard />}>
             <Route path="users/:id/todos" element={<Todos />} />
             <Route path="users/:id/posts" element={<Posts />} />
-            <Route path="users/:id/albums" element={<Albums />} />
-            <Route element={<AlbumGuard/>}>
-              <Route path="users/:id/albums/:albumId/photos" element={<AlbumPhotos />} />
-            </Route>
           </Route>
         </Route>
       </Routes>

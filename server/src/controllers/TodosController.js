@@ -45,9 +45,7 @@ const TodoController = {
     deleteTodo: async (req, res) => {
         try {
             const todoId = req.params.id;
-            const { userId } = req.body;
-            
-            const result = await TodoService.deleteTodo(userId, todoId);
+            const result = await TodoService.deleteTodo(todoId);
             res.status(200).json(result);
         } catch (error) {
             res.status(400).json({ error: error.message });

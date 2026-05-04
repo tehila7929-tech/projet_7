@@ -22,12 +22,6 @@ export default function Navbar({ handleLogout, setShowInfo }) {
         >
           Posts
         </Link>
-        <Link
-          className={`navbar-link ${location.pathname.includes('/albums') ? 'active' : ''}`}
-          to={`/users/${currentUser.id}/albums`}
-        >
-          Albums
-        </Link>
       </div>
       <button className="navbar-button logout" onClick={handleLogout}>Logout</button>
     </nav>

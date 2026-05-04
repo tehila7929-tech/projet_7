@@ -26,9 +26,8 @@ const Todo = {
         return result.affectedRows;
     },
 
-    delete: async (userId, todoId) => {
-        const [result] = await db.query('DELETE FROM todos WHERE id = ? AND user_id = ?',
-            [todoId, userId]);
+    delete: async (todoId) => {
+        const [result] = await db.query('DELETE FROM todos WHERE id = ?', [todoId]);
         return result.affectedRows;
     }
 };

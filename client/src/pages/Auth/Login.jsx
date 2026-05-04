@@ -28,24 +28,10 @@ export default function Login() {
         const password = formData.password;
 
         try {
-            const res = await axios.get(`${baseUrl}?username=${username}`);
-
-            if (res.data.length > 0) {
-                if (res.data[0].website === password) {
-                    setMessage("Login successful");
-
-                    setCurrentUser(res.data[0]);
-
-                    navigate(`/home`);
-                }
-                else {
-                    setMessage("The username or password is incorrect, please try again.");
-                }
-            }
-            else {
-                setMessage("The username or password is incorrect, please try again.");
-            }
-
+            const res = await axios.post(`${baseUrl}/login`, { username, password });
+            setCurrentUser(res.data.user);
+            setMessage("Login successful");
+            navigate(`/home`);
         }
         catch (err) {
             setMessage("Error logging in");
