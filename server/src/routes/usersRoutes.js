@@ -3,8 +3,8 @@ const router = express.Router();
 const UserController = require('../controllers/usersController');
 
 router.post('/login', UserController.login);
-router.post('/register', UserController.register);
-router.get('/exists/username/:username', UserController.checkUsernameExists);
+router.post('/', UserController.register);
+router.get('/', UserController.checkUsernameExists);
 router.get('/info/:userId', UserController.getUserInfo);
 router.get('/exists/:userId', UserController.checkUserExists);
 

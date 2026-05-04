@@ -23,8 +23,7 @@ const PostController = {
 
     createPost: async (req, res) => {
         try {
-            const userId = req.params.userId;
-            const { title, body } = req.body;
+            const { userId, title, body } = req.body;
             const newPost = await PostService.createPost(userId, title, body);
             res.status(201).json(newPost);
         } catch (error) {
@@ -34,9 +33,8 @@ const PostController = {
 
     updatePost: async (req, res) => {
         try {
-            const userId = req.params.userId;
             const postId = req.params.id;
-            const { title, body } = req.body;
+            const { userId, title, body } = req.body;
             const result = await PostService.updatePost(userId, postId, { title, body });
             res.status(200).json(result);
         } catch (error) {
@@ -46,8 +44,8 @@ const PostController = {
 
     deletePost: async (req, res) => {
         try {
-            const userId = req.params.userId;
             const postId = req.params.id;
+            const { userId } = req.body;
             const result = await PostService.deletePost(userId, postId);
             res.status(200).json(result);
         } catch (error) {

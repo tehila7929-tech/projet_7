@@ -17,8 +17,7 @@ const TodoController = {
     // יצירת משימה חדשה המשויכת למזהה המשתמש שבכתובת
     createTodo: async (req, res) => {
         try {
-            const userId = req.params.userId;
-            const { title } = req.body;
+            const { userId, title } = req.body;
             
             const newTodo = await TodoService.createTodo(userId, title);
             res.status(201).json(newTodo);
@@ -31,9 +30,8 @@ const TodoController = {
     // עדכון משימה ספציפית עבור משתמש מסוים
     updateTodo: async (req, res) => {
         try {
-            const userId = req.params.userId;
-            const todoId = req.params.id; 
-            const { title, completed } = req.body;
+            const todoId = req.params.id;
+            const { userId, title, completed } = req.body;
             
             const result = await TodoService.updateTodo(userId, todoId, { title, completed });
             res.status(200).json(result);
@@ -46,8 +44,8 @@ const TodoController = {
     // מחיקת משימה של משתמש לפי מזהה המשתמש ומזהה המשימה
     deleteTodo: async (req, res) => {
         try {
-            const userId = req.params.userId;
             const todoId = req.params.id;
+            const { userId } = req.body;
             
             const result = await TodoService.deleteTodo(userId, todoId);
             res.status(200).json(result);

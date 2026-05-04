@@ -45,9 +45,9 @@ const UserController = {
 
     checkUsernameExists: async (req, res) => {
         try {
-            const { username } = req.params;
+            const username = req.query.username;
             const exists = await UsersService.checkUsernameExists(username);
-            res.status(200).json({ exists });
+            res.status(200).json(exists ? [{ username }] : []);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }

@@ -7,14 +7,8 @@ const { checkCommentOwnership } = require('../middlewares/ownershipMiddleware');
 
 // שליפת כל התגובות של פוסט מסוים
 router.get('/', CommentController.getComments);
-
-// יצירת תגובה חדשה לפוסט על ידי משתמש מסוים
-router.post('/:postId/users/:userId', CommentController.createComment);
-
-// עדכון תגובה ספציפית (צריך לדעת מי המשתמש ומה מזהה התגובה)
-router.put('/users/:userId/comments/:id', checkCommentOwnership, CommentController.updateComment);
-
-// מחיקת תגובה ספציפית
-router.delete('/users/:userId/comments/:id', checkCommentOwnership, CommentController.deleteComment);
+router.post('/', CommentController.createComment);
+router.patch('/:id', CommentController.updateComment);
+router.delete('/:id', CommentController.deleteComment);
 
 module.exports = router;
