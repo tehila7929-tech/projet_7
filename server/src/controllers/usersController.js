@@ -35,8 +35,8 @@ const UserController = {
 
     register: async (req, res) => {
         try {
-            const { username, password } = req.body;
-            const newUser = await UsersService.register(username, password);
+            const { username, password, name, email, address, phone, website, company } = req.body;
+            const newUser = await UsersService.register(username, password, { name, email, address, phone, website, company });
             res.status(201).json(newUser);
         } catch (error) {
             res.status(400).json({ error: error.message });

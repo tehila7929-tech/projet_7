@@ -19,24 +19,20 @@ const PostService = {
     },
 
     updatePost: async (userId, postId, updatedData) => {
-        if (!userId || !postId) throw new Error('User ID and post ID are required');
+        if (!postId) throw new Error('Post ID is required');
         if (!updatedData.title || updatedData.title.trim() === '') throw new Error('Title cannot be empty');
         if (!updatedData.body || updatedData.body.trim() === '') throw new Error('Body cannot be empty');
 
         const affectedRows = await Post.update(userId, postId, updatedData);
-        if (affectedRows === 0) {
-            throw new Error('Post not found or not authorized to update');
-        }
+        if (affectedRows === 0) throw new Error('Post not found');
         return { success: true, message: 'Post updated successfully' };
     },
 
     deletePost: async (userId, postId) => {
-        if (!userId || !postId) throw new Error('User ID and Post ID are required');
+        if (!postId) throw new Error('Post ID is required');
 
         const affectedRows = await Post.delete(userId, postId);
-        if (affectedRows === 0) {
-            throw new Error('Post not found or not authorized to delete');
-        }
+        if (affectedRows === 0) throw new Error('Post not found');
         return { success: true, message: 'Post deleted successfully' };
     }
 };

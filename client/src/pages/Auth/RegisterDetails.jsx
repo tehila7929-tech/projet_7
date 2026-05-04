@@ -30,19 +30,12 @@ export default function RegisterDetails() {
     const [formData, setFormData] = useState({
         name: "",
         username: username,
+        password: password,
         email: "",
-        address: {
-            street: "",
-            number: "",
-            city: ""
-        },
+        address: "",
         phone: "",
-        website: password,
-        company: {
-            name: "",
-            catchPhrase: "",
-            bs: ""
-        }
+        website: "",
+        company: ""
     })
 
     const [errors, setErrors] = useState({});
@@ -50,22 +43,7 @@ export default function RegisterDetails() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (name.includes(".")) {
-            const [parent, child] = name.split(".");
-            setFormData((prev) => ({
-                ...prev,
-                [parent]: {
-                    ...prev[parent],
-                    [child]: value
-                }
-            }));
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                [name]: value
-            }));
-        }
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const validateForm = () => {
@@ -73,19 +51,10 @@ export default function RegisterDetails() {
 
         if (!formData.name.trim()) newErrors.name = "Name is required";
         if (!formData.email.trim()) newErrors.email = "Email is required";
-        if (!formData.address.street.trim()) newErrors['address.street'] = "Street is required";
-        if (!formData.address.number.trim()) newErrors['address.number'] = "Number is required";
-        if (!formData.address.city.trim()) newErrors['address.city'] = "City is required";
-        if (!formData.phone.trim()) newErrors.phone = "Phone is required";
-        if (!formData.company.name.trim()) newErrors['company.name'] = "Company name is required";
-
-        if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
             newErrors.email = "Invalid email format";
-        }
-
-        if (formData.phone && !/^[\d\-\+\(\)\s]+$/.test(formData.phone)) {
+        if (formData.phone && !/^[\d\-\+\(\)\s]+$/.test(formData.phone))
             newErrors.phone = "Invalid phone format";
-        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -101,7 +70,7 @@ export default function RegisterDetails() {
                 navigate(`/home`);
             }
             catch (err) {
-                setServerError(err);
+                setServerError(err.response?.data?.error || err.message || 'Registration failed');
             }
 
         }
@@ -153,73 +122,22 @@ export default function RegisterDetails() {
                         />
                         {errors.phone && <span className="error-text">{errors.phone}</span>}
 
-                        <p className="form-section-title">Address</p>
                         <input
                             className="auth-input"
-                            name="address.street"
+                            name="address"
                             type="text"
-                            placeholder="Street"
+                            placeholder="Address (e.g. Main St 5, Tel Aviv)"
                             onChange={handleChange}
-                            value={formData.address.street}
-                            style={{ borderColor: errors['address.street'] ? '#ef4444' : '' }}
-                        />
-                        {errors['address.street'] && <span className="error-text">{errors['address.street']}</span>}
-
-                        <div className="form-row">
-                            <div>
-                                <input
-                                    className="auth-input"
-                                    name="address.number"
-                                    type="text"
-                                    placeholder="Number"
-                                    onChange={handleChange}
-                                    value={formData.address.number}
-                                    style={{ borderColor: errors['address.number'] ? '#ef4444' : '' }}
-                                />
-                                {errors['address.number'] && <span className="error-text">{errors['address.number']}</span>}
-                            </div>
-                            <div>
-                                <input
-                                    className="auth-input"
-                                    name="address.city"
-                                    type="text"
-                                    placeholder="City"
-                                    onChange={handleChange}
-                                    value={formData.address.city}
-                                    style={{ borderColor: errors['address.city'] ? '#ef4444' : '' }}
-                                />
-                                {errors['address.city'] && <span className="error-text">{errors['address.city']}</span>}
-                            </div>
-                        </div>
-
-                        <p className="form-section-title">Company (Optional)</p>
-                        <input
-                            className="auth-input"
-                            name="company.name"
-                            type="text"
-                            placeholder="Company Name"
-                            onChange={handleChange}
-                            value={formData.company.name}
-                            style={{ borderColor: errors['company.name'] ? '#ef4444' : '' }}
-                        />
-                        {errors['company.name'] && <span className="error-text">{errors['company.name']}</span>}
-
-                        <input
-                            className="auth-input"
-                            name="company.catchPhrase"
-                            type="text"
-                            placeholder="Company Catch Phrase"
-                            onChange={handleChange}
-                            value={formData.company.catchPhrase}
+                            value={formData.address}
                         />
 
                         <input
                             className="auth-input"
-                            name="company.bs"
+                            name="company"
                             type="text"
-                            placeholder="Company BS"
+                            placeholder="Company (optional)"
                             onChange={handleChange}
-                            value={formData.company.bs}
+                            value={formData.company}
                         />
 
                         <button className="auth-button" type='submit'>Complete Registration</button>

@@ -74,65 +74,6 @@
     background-color: #059669;
 }
 
-.todos-controls {
-    background-color: white;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.control-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.control-group label {
-    color: #64748b;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.control-group select,
-.control-group input {
-    padding: 10px 14px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.control-group select:focus,
-.control-group input:focus {
-    border-color: #3b82f6;
-}
-
-.control-group input {
-    min-width: 200px;
-}
-
-.clear-btn {
-    padding: 10px 20px;
-    background-color: #f1f5f9;
-    color: #64748b;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.clear-btn:hover {
-    background-color: #e2e8f0;
-    color: #1e293b;
-}
-
 .todos-list {
     display: flex;
     flex-direction: column;

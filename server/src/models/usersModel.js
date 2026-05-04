@@ -17,10 +17,11 @@ const User = {
         return rows[0];
     },
 
-    create: async (username, Password) => {
+    create: async (username, Password, details = {}) => {
+        const { name, email, address, phone, website, company } = details;
         const [result] = await db.query(
-            'INSERT INTO users (username) VALUES (?)',
-            [username]
+            'INSERT INTO users (username, name, email, address, phone, website, company) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [username, name || null, email || null, address || null, phone || null, website || null, company || null]
         );
         const newId = result.insertId;
         await db.query(

@@ -18,9 +18,7 @@ const TodoService = {
 
     // עדכון משימה
     updateTodo: async (userId, todoId, updatedData) => {
-        if (!userId || !todoId) throw new Error('User ID and Todo ID are required');
-        if (!updatedData.title || updatedData.title.trim() === '') throw new Error('Title cannot be empty');
-        if (typeof updatedData.completed !== 'boolean') throw new Error('Completed must be a boolean value');
+        if (!todoId) throw new Error('Todo ID is required');
 
         const affectedRows = await Todo.update(userId, todoId, updatedData);
         if (affectedRows === 0) {

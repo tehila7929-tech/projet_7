@@ -85,7 +85,7 @@ INSERT INTO posts (id, user_id, title, body) VALUES
 -- --------------------------------------------------------
 -- הזנת תגובות מעודכנת (Comments) עם userId
 -- --------------------------------------------------------
-INSERT INTO comments (id, postId, userId, name, email, body) VALUES
+INSERT INTO comments (id, post_id, user_id, name, email, body) VALUES
 (1, 1, 1, 'Leanne Graham', 'Sincere@april.biz', 'True character is indeed built through adversity.'),
 (2, 1, 2, 'Ervin Howell', 'Shanna@melissa.tv', 'Persistence is the key to overcoming any challenge.'),
 (3, 1, 3, 'Clementine Bauch', 'Nathan@yesenia.net', 'Failure is just a stepping stone to success.'),

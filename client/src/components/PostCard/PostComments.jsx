@@ -15,7 +15,8 @@ export default function PostComments({ postId}) {
         const commentData = {
             body: newCommentBody,
             email: currentUser.email,
-            name: currentUser.name || currentUser.username
+            name: currentUser.name || currentUser.username,
+            userId: currentUser.id
         };
         await add(commentData);
         setNewCommentBody("");

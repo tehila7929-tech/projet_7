@@ -18,10 +18,15 @@ const Todo = {
     },
 
     update: async (userId, todoId, updatedData) => {
-        const { title, completed } = updatedData;
+        const fields = [];
+        const values = [];
+        if (updatedData.title !== undefined) { fields.push('title = ?'); values.push(updatedData.title); }
+        if (updatedData.completed !== undefined) { fields.push('completed = ?'); values.push(updatedData.completed); }
+        if (fields.length === 0) return 0;
+        values.push(todoId);
         const [result] = await db.query(
-            'UPDATE todos SET title = ?, completed = ? WHERE id = ? AND user_id = ?',
-            [title, completed, todoId, userId]
+            `UPDATE todos SET ${fields.join(', ')} WHERE id = ?`,
+            values
         );
         return result.affectedRows;
     },

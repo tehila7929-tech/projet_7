@@ -14,6 +14,37 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.posts-header-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.my-posts-btn {
+    padding: 12px 24px;
+    background-color: #f1f5f9;
+    color: #64748b;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.my-posts-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.my-posts-btn.active {
+    background-color: #2563eb;
+    color: white;
+}
+
+.my-posts-btn.active:hover {
+    background-color: #1d4ed8;
+}
+
 .add-post-btn {
     padding: 12px 24px;
     background-color: #3b82f6;

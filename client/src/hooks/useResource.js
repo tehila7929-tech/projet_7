@@ -43,7 +43,7 @@ export const useResource = (resourceName, queryParams = {}) => {
     const remove = async (id) => {
         try {
             setLoading(true);
-            await axios.delete(`${baseUrl}/${id}`);
+            await axios.delete(`${baseUrl}/${id}`, { data: queryParams });
             setData(prev => prev.filter(item => item.id !== id));
         } catch (err) { setError(err) }
         finally { setLoading(false); }

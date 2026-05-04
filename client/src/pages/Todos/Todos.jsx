@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useResource } from '../../hooks/useResource';
-import { useSearch } from '../../hooks/useSearch';
-import SearchBar from '../../components/SearchBar/SearchBar';
 import DataViewer from '../../components/DataViewer/DataViewer';
 import './Todos.css';
 
@@ -11,26 +9,10 @@ export default function Todos() {
     
     const { data: todos, add, remove, update, error, loading } = useResource('todos', { userId: id });
 
-    const searchStrategies = {
-        title: (todo, val) => todo.title.toLowerCase().includes(val),
-        id: (todo, val) => todo.id.toString().includes(val),
-        status: (todo, val) => {
-            if (val === 'completed') return todo.completed;
-            if (val === 'not completed') return !todo.completed;
-            return false;
-        }
-    };
-
-    const { 
-        filteredData: displayTodos, 
-        searchTerm, setSearchTerm, searchBy, setSearchBy, searchOptions 
-    } = useSearch(todos, searchStrategies);
-
     const [addTodoInput, setAddTodoInput] = useState(false);
     const [newTodoTitle, setNewTodoTitle] = useState("");
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState("");
-    const [sortBy, setSortBy] = useState("none");
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -38,7 +20,6 @@ export default function Todos() {
         await add({ title: newTodoTitle, completed: false });
         setNewTodoTitle("");
         setAddTodoInput(false);
-        setSearchTerm(""); 
     };
 
     const handleSaveEdit = async (todoId) => {
@@ -47,43 +28,10 @@ export default function Todos() {
         setEditTitle("");
     };
 
-    const getSortedAndFilteredTodos = () => {
-        if (!sortBy || sortBy === "none") return displayTodos;
-        
-        return [...displayTodos].sort((a, b) => {
-            switch (sortBy) {
-                case 'completed': return b.completed - a.completed;
-                case 'not-completed': return a.completed - b.completed;
-                case 'id': return a.id - b.id;
-                case 'title': return a.title.localeCompare(b.title);
-                default: return 0;
-            }
-        });
-    };
-
     return (
         <div className="todos-container">
-            <div className="todos-controls">
-                <div className="control-group">
-                    <label>Sort by:</label>
-                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                        <option value="none">None</option>
-                        <option value="completed">Completed</option>
-                        <option value="not-completed">Not Completed</option>
-                        <option value="id">ID</option>
-                        <option value="title">Title</option>
-                    </select>
-                </div>
-
-                <SearchBar 
-                    searchTerm={searchTerm} setSearchTerm={setSearchTerm}
-                    searchBy={searchBy} setSearchBy={setSearchBy}
-                    options={searchOptions}
-                />
-            </div>
-
             <div className="todos-header">
-                 <button 
+                <button 
                     className={`add-todo-btn ${addTodoInput ? 'cancel' : ''}`}
                     onClick={() => setAddTodoInput(!addTodoInput)}
                 >
@@ -103,9 +51,9 @@ export default function Todos() {
                 )}
             </div>
 
-            <DataViewer loading={loading} error={error} data={displayTodos}>
+            <DataViewer loading={loading} error={error} data={todos}>
                 <div className="todos-list">
-                    {getSortedAndFilteredTodos().map(todo => (
+                    {todos.map(todo => (
                         <div key={todo.id} className="todo-item">
                             <span className="todo-id">#{todo.id}</span>
                             <input

@@ -26,38 +26,46 @@ export default function Info({ setShowInfoState }) {
 
                 <div className="info-content">
                     <div className="info-grid">
-                        <div className="info-card">
-                            <span className="info-icon">✉</span>
-                            <div className="info-card-content">
-                                <div className="info-card-label">Email</div>
-                                <div className="info-card-value">{currentUser.email}</div>
+                        {currentUser.email && (
+                            <div className="info-card">
+                                <span className="info-icon">✉</span>
+                                <div className="info-card-content">
+                                    <div className="info-card-label">Email</div>
+                                    <div className="info-card-value">{currentUser.email}</div>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="info-card">
-                            <span className="info-icon">☎</span>
-                            <div className="info-card-content">
-                                <div className="info-card-label">Phone</div>
-                                <div className="info-card-value">{currentUser.phone}</div>
+                        {currentUser.phone && (
+                            <div className="info-card">
+                                <span className="info-icon">☎</span>
+                                <div className="info-card-content">
+                                    <div className="info-card-label">Phone</div>
+                                    <div className="info-card-value">{currentUser.phone}</div>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="info-card">
-                            <span className="info-icon">🗺️</span>
-                            <div className="info-card-content">
-                                <div className="info-card-label">Address</div>
-                                <div className="info-card-value">{currentUser.address.street} {currentUser.address.number}, {currentUser.address.city}</div>
+                        {currentUser.address && (
+                            <div className="info-card">
+                                <span className="info-icon">🗺️</span>
+                                <div className="info-card-content">
+                                    <div className="info-card-label">Address</div>
+                                    <div className="info-card-value">{currentUser.address}</div>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="info-card">
-                            <span className="info-icon">🏢</span>
-                            <div className="info-card-content">
-                                <div className="info-card-label">Company</div>
-                                <div className="info-card-value">{currentUser.company.name}</div>
-                                <div className="info-card-subtitle">{currentUser.company.catchPhrase}</div>
+                        {currentUser.company && (
+                            <div className="info-card">
+                                <span className="info-icon">🏢</span>
+                                <div className="info-card-content">
+                                    <div className="info-card-label">Company</div>
+                                    <div className="info-card-value">{currentUser.company}</div>
+                                </div>
                             </div>
-                        </div>
+                        )}
+
                     </div>
                 </div>
             </div>

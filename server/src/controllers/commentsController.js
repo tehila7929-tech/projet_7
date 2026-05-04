@@ -14,7 +14,9 @@ const CommentController = {
 
     createComment: async (req, res) => {
         try {
-            const { postId, userId, name, email, body } = req.body;
+            const { postId, name, email, body } = req.body;
+            const userId = req.body.userId ? Number(req.body.userId) : null;
+            console.log('createComment v2:', { postId, userId, name, email, body });
             const newComment = await CommentsService.createComment(postId, userId, name, email, body);
             res.status(201).json(newComment);
         } catch (error) {

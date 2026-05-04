@@ -7,7 +7,6 @@ const CommentsService = {
     },
 
     createComment: async (postId, userId, name, email, body) => {
-        if (!userId) throw new Error('User ID is required');
         if (!postId) throw new Error('post ID is required');
         if (!name || name.trim() === '') throw new Error('Name cannot be empty');
         if (!email || email.trim() === '') throw new Error('Email cannot be empty');
@@ -22,7 +21,7 @@ const CommentsService = {
     },
 
     updateComment: async (userId, commentId, updatedData) => {
-        if (!userId || !commentId) throw new Error('User ID and comment ID are required');
+        if (!commentId) throw new Error('Comment ID is required');
         if (!updatedData.body || updatedData.body.trim() === '') throw new Error('Body cannot be empty');
 
         const affectedRows = await Comments.update(userId, commentId, updatedData);
@@ -33,7 +32,7 @@ const CommentsService = {
     },
 
     deleteComment: async (userId, commentId) => {
-        if (!userId || !commentId) throw new Error('User ID and Comment ID are required');
+        if (!commentId) throw new Error('Comment ID is required');
 
         const affectedRows = await Comments.delete(userId, commentId);
         if (affectedRows === 0) {

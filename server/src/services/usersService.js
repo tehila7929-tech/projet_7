@@ -40,12 +40,12 @@ const UsersService = {
         return !!user;
     },
 
-    register: async (username, password) => {
+    register: async (username, password, details = {}) => {
         if (!username || !password) throw new Error('Username and password are required');
         const alreadyExists = await User.exists(username);
         if (alreadyExists) throw new Error('Username already taken');
-        const newId = await User.create(username, password);
-        return { id: newId, username };
+        const newId = await User.create(username, password, details);
+        return { id: newId, username, ...details };
     },
 
     checkUsernameExists: async (username) => {
