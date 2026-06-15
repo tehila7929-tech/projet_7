@@ -1,4 +1,4 @@
-# Project 7 - Full Stack App
+# TaskBoard - Full Stack App
 
 A full stack web application built with React + Vite (client) and Node.js + Express (server), using MySQL as the database.
 
@@ -11,7 +11,7 @@ A full stack web application built with React + Vite (client) and Node.js + Expr
 ## Project Structure
 
 ```
-project_7/
+TaskBoard/
 ├── client/       # React frontend
 ├── server/       # Express backend
 └── database/     # SQL schema and seed files
